@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Vehicle extends Model
 {
     protected $table = 'vehicles';
+    public $timestamps = false;
     protected $fillable = [
         'json_data_id',
         'type',

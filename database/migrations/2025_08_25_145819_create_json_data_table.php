@@ -24,8 +24,6 @@ return new class extends Migration
             $table->string('transmission');
             $table->string('km');
             $table->text('description')->nullable();
-            $table->timestamp('created_json');
-            $table->timestamp('updated_json');
             $table->boolean('sold')->default(false);
             $table->string('category');
             $table->string('url_car');
@@ -36,7 +34,8 @@ return new class extends Migration
             $table->json('year');
             $table->json('optionals');
             $table->json('fotos');
-            $table->timestamps();
+            $table->timestamp('created');
+            $table->timestamp('updated');
         });
     }
 

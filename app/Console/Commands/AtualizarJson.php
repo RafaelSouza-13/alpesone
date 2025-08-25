@@ -59,8 +59,8 @@ class AtualizarJson extends Command
                 foreach ($data as $item) {
                     $itemMapped = [
                         'json_data_id' => $item['id'],
-                        'created_json' => $item['created'],
-                        'updated_json' => $item['updated'],
+                        'created' => $item['created'],
+                        'updated' => $item['updated'],
                         'type'         => $item['type'],
                         'brand'        => $item['brand'],
                         'model'        => $item['model'],
