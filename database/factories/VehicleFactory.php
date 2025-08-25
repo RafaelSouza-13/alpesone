@@ -17,7 +17,7 @@ class VehicleFactory extends Factory
     public function definition(): array
     {
         return [
-            'json_data_id' => $this->faker->uuid(),
+            'json_data_id' => $this->faker->unique()->numberBetween(1, 999999),
             'type' => $this->faker->randomElement(['carro', 'moto', 'caminhão']),
             'brand' => $this->faker->randomElement(['Hyundai', 'Toyota', 'Ford', 'Honda']),
             'model' => $this->faker->word(),
