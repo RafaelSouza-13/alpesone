@@ -5,13 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\VehicleRequest;
 use App\Http\Resources\VehicleResource;
 use App\Models\Vehicle;
-use Illuminate\Http\Request;
 use \Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Repositories\VehicleRepository;
+
 class VehicleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected VehicleRepository $vehicleRepository;
+
+    public function __construct(VehicleRepository $vehicleRepository)
+    {
+        $this->vehicleRepository = $vehicleRepository;
+    }
     public function index()
     {
         $vehicles = Vehicle::paginate(5);
@@ -24,6 +28,8 @@ class VehicleController extends Controller
     public function store(VehicleRequest $request)
     {
         $data = $request->validated();
+        $vehicle = $this->vehicleRepository->create($data);
+        return response()->json(['data' => new VehicleResource($vehicle)], 201);
     }
 
     /**
@@ -37,14 +43,6 @@ class VehicleController extends Controller
             return response()->json(['error' => 'Vehicle not found'], 404);
         }
         return (new VehicleResource($vehicle))->response()->setStatusCode(200);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        
     }
 
     /**

@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Vehicle extends Model
 {
+    use HasFactory;
     protected $table = 'vehicles';
     public $timestamps = false;
     protected $fillable = [

@@ -29,7 +29,7 @@ class VehicleRequest extends FormRequest
             'brand'    => 'required|string',
             'model'    => 'required|string',
             'version'  => 'required|string',
-            'doors'    => 'required|integer',
+            'doors'    => 'required|integer|min:2',
             'board'    => 'required|string',
             'chassi'   => 'nullable|string',
             'transmission' => 'required|string',
