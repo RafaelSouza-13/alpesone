@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\VehicleRequest;
+use App\Http\Resources\VehicleResource;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use \Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -13,7 +15,7 @@ class VehicleController extends Controller
     public function index()
     {
         $vehicles = Vehicle::paginate(5);
-        return response()->json($vehicles, 200);
+        return VehicleResource::collection($vehicles)->response()->setStatusCode(200);
     }
 
     /**
@@ -27,9 +29,9 @@ class VehicleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(VehicleRequest $request)
     {
-        //
+        $data = $request->validated();
     }
 
     /**
@@ -42,7 +44,7 @@ class VehicleController extends Controller
         }catch(ModelNotFoundException $e){
             return response()->json(['error' => 'Vehicle not found'], 404);
         }
-        return response()->json($vehicle, 200);
+        return (new VehicleResource($vehicle))->response()->setStatusCode(200);
     }
 
     /**
@@ -50,15 +52,19 @@ class VehicleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(VehicleRequest $request, string $id)
     {
-        //
+        try{
+            $vehicle = Vehicle::where('json_data_id', $id)->firstOrFail();
+        }catch(ModelNotFoundException $e){
+            return response()->json(['error' => 'Vehicle not found'], 404);
+        }
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Servies;
+namespace App\Services;
 
 use App\Models\Vehicle;
 use Illuminate\Support\Facades\DB;
@@ -11,7 +11,7 @@ class VehicleService
 {
     public static function mapper(array $item): array{
         return [
-            'json_data_id' => $item['id'],
+            'id' => $item['id'],
             'created' => $item['created'],
             'updated' => $item['updated'],
             'type'         => $item['type'],

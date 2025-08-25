@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule;
 
 class VehicleRequest extends FormRequest
 {
@@ -23,14 +24,14 @@ class VehicleRequest extends FormRequest
      */
     public function rules(){
         return [
-            'json_data_id' => 'required|integer',
-            'type'         => 'required|string',
-            'brand'        => 'required|string',
-            'model'        => 'required|string',
-            'version'      => 'required|string',
-            'doors'        => 'required|string',
-            'board'        => 'required|string',
-            'chassi'       => 'nullable|string',
+            'id' => 'required|integer',
+            'type'     => 'required|string',
+            'brand'    => 'required|string',
+            'model'    => 'required|string',
+            'version'  => 'required|string',
+            'doors'    => 'required|string',
+            'board'    => 'required|string',
+            'chassi'   => 'nullable|string',
             'transmission' => 'required|string',
             'km'           => 'required|string',
             'description'  => 'nullable|string',
@@ -52,8 +53,8 @@ class VehicleRequest extends FormRequest
     public function messages()
     {
         return [
-            'json_data_id.required' => 'O campo json_data_id é obrigatório.',
-            'json_data_id.integer'  => 'O campo json_data_id deve ser um número.',
+            'id.required' => 'O campo id é obrigatório.',
+            'id.integer'  => 'O campo id deve ser um número.',
             'type.required'         => 'O campo type é obrigatório.',
             'brand.required'        => 'O campo brand é obrigatório.',
             'model.required'        => 'O campo model é obrigatório.',

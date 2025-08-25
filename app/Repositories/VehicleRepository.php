@@ -6,6 +6,7 @@ use App\Models\Vehicle;
 use Illuminate\Support\Facades\DB;
 use Exception;
 use Illuminate\Database\QueryException;
+use Illuminate\Database\PDOException;
 
 class VehicleRepository
 {
@@ -14,7 +15,7 @@ class VehicleRepository
         try {
             return DB::transaction(function () use ($data) {
                 return Vehicle::updateOrCreate(
-                    ['json_data_id' => $data['json_data_id']],
+                    ['json_data_id' => $data['id']],
                     [
                         'type'         => $data['type'],
                         'brand'        => $data['brand'],
@@ -45,7 +46,12 @@ class VehicleRepository
             report($qe);
             logger()->error("Erro de Query no VehicleRepository: " . $qe->getMessage(), ['id' => $data['id']]);
             return null;
-        } catch (\Throwable $e) {
+        } catch (PDOException $e) {
+            report($e);
+            logger()->error("Erro inesperado no VehicleRepository: " . $e->getMessage(), ['id' => $data['id']]);
+            return null;
+        }
+        catch (\Throwable $e) {
             report($e);
             logger()->error("Erro inesperado no VehicleRepository: " . $e->getMessage(), ['id' => $data['id']]);
             return null;

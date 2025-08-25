@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Http\Requests\VehicleRequest;
 use App\Repositories\VehicleRepository;
+use App\Services\VehicleService;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Console\Command;
@@ -57,31 +58,7 @@ class AtualizarJson extends Command
                     return;
                 }
                 foreach ($data as $item) {
-                    $itemMapped = [
-                        'json_data_id' => $item['id'],
-                        'created' => $item['created'],
-                        'updated' => $item['updated'],
-                        'type'         => $item['type'],
-                        'brand'        => $item['brand'],
-                        'model'        => $item['model'],
-                        'version'      => $item['version'],
-                        'doors'       => $item['doors'],
-                        'board'       => $item['board'],
-                        'chassi'      => $item['chassi'],
-                        'transmission'=> $item['transmission'],
-                        'km'          => $item['km'],
-                        'description' => $item['description'],
-                        'sold'        => $item['sold'],
-                        'category'    => $item['category'],
-                        'url_car'     => $item['url_car'],
-                        'old_price'   => $item['old_price'],
-                        'price'       => $item['price'],
-                        'color'      => $item['color'],
-                        'fuel'       => $item['fuel'],
-                        'year'       => json_encode($item['year']),
-                        'optionals'  => json_encode($item['optionals']),
-                        'fotos'      => json_encode($item['fotos']),
-                    ];
+                    $itemMapped = VehicleService::mapper($item);
 
                     $validator = Validator::make($itemMapped, (new VehicleRequest())->rules());
 
@@ -94,7 +71,7 @@ class AtualizarJson extends Command
                     $vehicleRepository->updateOrCreate($validated);
                     $success++;
                 }
-              Cache::put('vehicles_json_hash', $currentHash, 3800);
+            //   Cache::put('vehicles_json_hash', $currentHash, 3800);
               $this->info("Processamento finalizado. Sucesso: $success, Falhas: $fail");
             }
         }catch (ConnectionException $e) {
