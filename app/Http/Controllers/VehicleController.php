@@ -28,7 +28,7 @@ class VehicleController extends Controller
     public function store(VehicleRequest $request)
     {
         $data = $request->validated();
-        $vehicle = $this->vehicleRepository->create($data);
+        $vehicle = $this->vehicleRepository->updateOrCreate($data);
         return response()->json(['data' => new VehicleResource($vehicle)], 201);
     }
 
@@ -51,10 +51,13 @@ class VehicleController extends Controller
     public function update(VehicleRequest $request, string $id)
     {
         try{
-            $vehicle = Vehicle::where('json_data_id', $id)->firstOrFail();
+            $data = $request->validated();
+            $vehicle = $this->vehicleRepository->updateOrCreate($data);
+            
         }catch(ModelNotFoundException $e){
             return response()->json(['error' => 'Vehicle not found'], 404);
         }
+        return response()->json(['data' => new VehicleResource($vehicle)], 200);
     }
 
     /**

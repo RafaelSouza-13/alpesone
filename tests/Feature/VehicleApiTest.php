@@ -65,9 +65,8 @@ class VehicleApiTest extends TestCase
     /** @test */
     public function vehicles_can_be_created()
     {
-        // Dados simulados para criar um veículo
         $data = [
-            'json_data_id' => 12345,
+            'id' => 12345,
             'type' => 'carro',
             'brand' => 'Hyundai',
             'model' => 'Creta',
@@ -95,11 +94,8 @@ class VehicleApiTest extends TestCase
         $response = $this->postJson('/api/v1/vehicles', $data);
 
         $response->assertStatus(201);
-
-        // Valida estrutura do JSON retornado (Resource)
         $response->assertJsonStructure([
             'data' => [
-                'id',
                 'json_data_id',
                 'type',
                 'brand',
@@ -126,9 +122,76 @@ class VehicleApiTest extends TestCase
             ]
         ]);
 
-        // Verifica se o registro realmente existe no banco
         $this->assertDatabaseHas('vehicles', [
             'json_data_id' => 12345,
+            'brand' => 'Hyundai',
+            'model' => 'Creta',
+        ]);
+    }
+
+    /** @test */
+    public function vehicles_can_be_updated(){
+        $vehicle = Vehicle::factory()->create();
+
+        $data = [
+            'id' => $vehicle->json_data_id,
+            'type' => 'carro',
+            'brand' => 'Hyundai',
+            'model' => 'Creta',
+            'version' => '2020',
+            'doors' => 4,
+            'board' => 'ABC',
+            'chassi' => '1234567890',
+            'transmission' => 'Automatic',
+            'km' => '2800',
+            'description' => 'Veículo de teste',
+            'created' => now()->toDateTimeString(),
+            'updated' => now()->toDateTimeString(),
+            'sold' => false,
+            'category' => 'Sedan',
+            'url_car' => 'https://example.com/car',
+            'old_price' => null,
+            'price' => 45000,
+            'color' => 'Blue',
+            'fuel' => 'Gasoline',
+            'year' => json_encode(['model' => '2023', 'build' => '2022']),
+            'optionals' => json_encode(['Sunroof', 'GPS']),
+            'fotos' => json_encode(['https://example.com/foto1.jpg']),
+        ];
+
+        $response = $this->putJson("/api/v1/vehicles/{$vehicle->json_data_id}", $data);
+
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'data' => [
+                'json_data_id',
+                'type',
+                'brand',
+                'model',
+                'version',
+                'doors',
+                'board',
+                'chassi',
+                'transmission',
+                'km',
+                'description',
+                'created',
+                'updated',
+                'sold',
+                'category',
+                'url_car',
+                'old_price',
+                'price',
+                'color',
+                'fuel',
+                'year',
+                'optionals',
+                'fotos',
+            ]
+        ]);
+
+        $this->assertDatabaseHas('vehicles', [
+            'json_data_id' => $vehicle->json_data_id,
             'brand' => 'Hyundai',
             'model' => 'Creta',
         ]);
