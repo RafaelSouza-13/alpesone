@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\VehicleRequest;
+use App\Http\Requests\VehicleRequestUpdate;
 use App\Http\Resources\VehicleResource;
 use App\Models\Vehicle;
 use \Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -48,11 +49,12 @@ class VehicleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(VehicleRequest $request, string $id)
+    public function update(VehicleRequestUpdate $request, string $id)
     {
         try{
+            $vehicle = $this->vehicleRepository->findByJsonId($id);
             $data = $request->validated();
-            $vehicle = $this->vehicleRepository->updateOrCreate($data);
+            $vehicle->update($data);
             
         }catch(ModelNotFoundException $e){
             return response()->json(['error' => 'Vehicle not found'], 404);

@@ -52,4 +52,8 @@ class VehicleRepository
             return null;
         }
     }
+
+    public function findByJsonId($id){
+        return Vehicle::where('json_data_id', $id)->first();
+    }
 }

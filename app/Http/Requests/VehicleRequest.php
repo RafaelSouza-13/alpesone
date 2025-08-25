@@ -44,9 +44,9 @@ class VehicleRequest extends FormRequest
             'price'        => 'required|numeric|min:0',
             'color'        => 'required|string',
             'fuel'         => 'required|string',
-            'year'         => 'required|json',
-            'optionals'    => 'required|json',
-            'fotos'        => 'required|json',
+            'year'         => 'required|array',
+            'optionals'    => 'required|array',
+            'fotos'        => 'required|array',
         ];
     }
 
@@ -78,12 +78,13 @@ class VehicleRequest extends FormRequest
             'color.required'       => 'O campo color é obrigatório.',
             'fuel.required'        => 'O campo fuel é obrigatório.',
             'year.required'       => 'O campo year é obrigatório.',
-            'year.json'           => 'O campo year deve ser um JSON válido.',
+            'year.array'           => 'O campo year deve ser um array válido.',
             'optionals.required'  => 'O campo optionals é obrigatório.',
-            'optionals.json'      => 'O campo optionals deve ser um JSON válido.',
+            'optionals.array'      => 'O campo optionals deve ser um array válido.',
             'fotos.required'      => 'O campo fotos é obrigatório.',
-            'fotos.json'          => 'O campo fotos deve ser um JSON válido.',
+            'fotos.array'          => 'O campo fotos deve ser um array válido.',
         ];
+        
     }
 
     public function failedValidation(Validator $validator){
