@@ -196,4 +196,20 @@ class VehicleApiTest extends TestCase
             'model' => 'Creta',
         ]);
     }
+    /** @test */
+    public function vehicles_can_be_deleted(){
+        $vehicle = Vehicle::factory()->create();
+
+        $response = $this->deleteJson("/api/v1/vehicles/{$vehicle->json_data_id}");
+
+        $response->assertStatus(200);
+        $response->assertJson([
+            'success' => true,
+            'message' => 'Vehicle deleted successfully.'
+        ]);
+
+        $this->assertDatabaseMissing('vehicles', [
+            'json_data_id' => $vehicle->json_data_id,
+        ]);
+    }
 }

@@ -65,6 +65,25 @@ class VehicleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $vehicle = Vehicle::where('json_data_id', $id)->firstOrFail();
+            $vehicle->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Vehicle deleted successfully.'
+            ], 200);
+
+        } catch (ModelNotFoundException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Vehicle not found.'
+            ], 404);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'An unexpected error occurred.'
+            ], 500);
+        }
     }
 }
