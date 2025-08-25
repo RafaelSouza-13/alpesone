@@ -38,9 +38,9 @@ class VehicleRequestTest extends TestCase
             'price' => 55000,
             'color' => 'Red',
             'fuel' => 'Gasoline',
-            'year'       => json_encode(['model' => '2023', 'build' => '2022']),
-            'optionals'  => json_encode(['Sunroof', 'GPS']),
-            'fotos'      => json_encode(['https://example.com/foto1.jpg']),
+            'year'       => ['model' => '2023', 'build' => '2022'],
+            'optionals'  => ['Sunroof', 'GPS'],
+            'fotos'      => ['https://example.com/foto1.jpg'],
         ];
 
         $validator = Validator::make($data, $this->request->rules());
@@ -71,9 +71,9 @@ class VehicleRequestTest extends TestCase
             'price' => 55000,
             'color' => 'Red',
             'fuel' => 'Gasoline',
-            'year'       => json_encode(['model' => '2023', 'build' => '2022']),
-            'optionals'  => json_encode(['Sunroof', 'GPS']),
-            'fotos'      => json_encode(['https://example.com/foto1.jpg']),
+            'year'       => ['model' => '2023', 'build' => '2022'],
+            'optionals'  => ['Sunroof', 'GPS'],
+            'fotos'      => ['https://example.com/foto1.jpg'],
         ];
 
         $validator = Validator::make($data, $this->request->rules());

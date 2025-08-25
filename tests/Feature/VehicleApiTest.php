@@ -86,9 +86,9 @@ class VehicleApiTest extends TestCase
             'price' => 55000,
             'color' => 'Red',
             'fuel' => 'Gasoline',
-            'year' => json_encode(['model' => '2023', 'build' => '2022']),
-            'optionals' => json_encode(['Sunroof', 'GPS']),
-            'fotos' => json_encode(['https://example.com/foto1.jpg']),
+            'year' => ['model' => '2023', 'build' => '2022'],
+            'optionals' => ['Sunroof', 'GPS'],
+            'fotos' => ['https://example.com/foto1.jpg'],
         ];
 
         $response = $this->postJson('/api/v1/vehicles', $data);
@@ -154,9 +154,9 @@ class VehicleApiTest extends TestCase
             'price' => 45000,
             'color' => 'Blue',
             'fuel' => 'Gasoline',
-            'year' => json_encode(['model' => '2023', 'build' => '2022']),
-            'optionals' => json_encode(['Sunroof', 'GPS']),
-            'fotos' => json_encode(['https://example.com/foto1.jpg']),
+            'year' => ['model' => '2023', 'build' => '2022'],
+            'optionals' => ['Sunroof', 'GPS'],
+            'fotos' => ['https://example.com/foto1.jpg'],
         ];
 
         $response = $this->putJson("/api/v1/vehicles/{$vehicle->json_data_id}", $data);

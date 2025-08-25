@@ -35,9 +35,9 @@ class VehicleResource extends JsonResource
             'price'        => $this->price,
             'color'        => $this->color,
             'fuel'         => $this->fuel,
-            'year'         => json_decode($this->year, true),
-            'optionals'    => json_decode($this->optionals, true),
-            'fotos'        => json_decode($this->fotos, true),
+            'year'         => $this->year,
+            'optionals'    => $this->optionals,
+            'fotos'        => $this->fotos,
         ];
     }
 }
