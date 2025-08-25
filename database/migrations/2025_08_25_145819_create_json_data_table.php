@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('brand');
             $table->string('model');
             $table->string('version');
-            $table->string('doors');
+            $table->integer('doors');
             $table->string('board');
             $table->string('chassi')->nullable();
             $table->string('transmission');
