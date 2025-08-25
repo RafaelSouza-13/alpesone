@@ -19,14 +19,6 @@ class VehicleController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(VehicleRequest $request)
@@ -40,7 +32,7 @@ class VehicleController extends Controller
     public function show(string $id)
     {
         try{
-            $vehicle = Vehicle::findOrFail($id);
+            $vehicle = Vehicle::where('json_data_id', $id)->firstOrFail();
         }catch(ModelNotFoundException $e){
             return response()->json(['error' => 'Vehicle not found'], 404);
         }
