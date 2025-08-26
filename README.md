@@ -51,7 +51,7 @@ Dentro do diretório extras encontrasse a collection para testes da API realizad
 - [x] Criar e configurar uma instância EC2
 - [ ] Configurar o servidor para permitir acesso público ao endpoint da API.
 - Extras
-    - [ ] Configurar um domínio ou subdomínio (exemplo: api.suaempresa.com)
+    - [x] Configurar um domínio ou subdomínio (exemplo: api.suaempresa.com)
         utilizando o Route 53 ou outro DNS.
     - [ ] Instalar e configurar HTTPS.
 
@@ -155,6 +155,8 @@ Para executar este projeto Laravel, certifique-se de ter instalado o PHP 8.3 ou 
 
 Siga as etapas abaixo para executar este projeto Laravel em sua máquina local:
 
+### Etapa 1
+
 1. **Clone o repositório**  
    ```bash
    git clone git@github.com:RafaelSouza-13/alpesone.git
@@ -162,7 +164,6 @@ Siga as etapas abaixo para executar este projeto Laravel em sua máquina local:
 2. **Acesse o diretório do projeto**
    ```bash
    cd alpesone
-
 
 3. **Configure as variáveis de ambiente**
     Copie o arquivo `.env.example` para `.env` e configure as variáveis de ambiente conforme o seu ambiente local (como configurações de banco de dados).
@@ -180,7 +181,7 @@ Siga as etapas abaixo para executar este projeto Laravel em sua máquina local:
 
 7. **Inicie o servidor**
    ```bash
-    php artisan server
+    php artisan serve
 
 8. **Execute as migrações do banco de dados**
     ```bash
@@ -201,3 +202,25 @@ Siga as etapas abaixo para executar este projeto Laravel em sua máquina local:
 12. **Comando para executar os testes**
     ```bash
     php artisan test
+
+### Etapa 2: Configurar a aplicação na instância EC2.
+1. **Crie uma instancia e de um nome**
+  - ex: meu-servidor
+2. **Escolha a imagem**
+  - Utilizei a ubuntu linux
+
+3. **Configurar par de chaves ssh**
+
+4. **Configurar Rede**
+  - Habilitar ssh, prototoclo http e https.
+
+5. **Armazenamento**
+  - Instancia com 8gb.
+
+6. **Criar**
+
+7. **Zonas hospedadas**
+  - insira um nome de domínio ex: rotadesafio.com
+
+8. **Criar registro**
+  - insira o nome, tipo = A e o ip público.
