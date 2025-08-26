@@ -45,7 +45,7 @@ class VehicleRequest extends FormRequest
             'color'        => 'required|string',
             'fuel'         => 'required|string',
             'year'         => 'required|array',
-            'optionals'    => 'required|array',
+            'optionals'    => 'array',
             'fotos'        => 'required|array',
         ];
     }
@@ -79,7 +79,6 @@ class VehicleRequest extends FormRequest
             'fuel.required'        => 'O campo fuel é obrigatório.',
             'year.required'       => 'O campo year é obrigatório.',
             'year.array'           => 'O campo year deve ser um array válido.',
-            'optionals.required'  => 'O campo optionals é obrigatório.',
             'optionals.array'      => 'O campo optionals deve ser um array válido.',
             'fotos.required'      => 'O campo fotos é obrigatório.',
             'fotos.array'          => 'O campo fotos deve ser um array válido.',

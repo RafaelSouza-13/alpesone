@@ -58,9 +58,7 @@ class AtualizarJson extends Command
                     return;
                 }
                 foreach ($data as $item) {
-                    $itemMapped = VehicleService::mapper($item);
-
-                    $validator = Validator::make($itemMapped, (new VehicleRequest())->rules());
+                    $validator = Validator::make($item, (new VehicleRequest())->rules());
 
                     if ($validator->fails()) {
                         $this->error("Dados inválidos {$item['id']}: " . json_encode($validator->errors()->all()));

@@ -7,55 +7,130 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+Que a força esteja com você!
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+#  Desafio Alpesone - Backend
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Criar uma API básica que forneça dados de um recurso e configurar um ambiente na AWS para
+hospedar e implantar essa aplicação. O foco é demonstrar habilidades em desenvolvimento
+backend, infraestrutura como serviço (AWS EC2) e conhecimentos de DevOps.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## ⚙️ Tecnologias Utilizadas
 
-## Learning Laravel
+- PHP 8.3
+- Laravel 12
+- Composer
+- Git
+- SQL
+- SQLITE3
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 💡 Funcionalidades
+- [x] Baixa e lê o JSON da URL
+- [x] SignIn
+- [x] Validar usuário
+- [x] Busca paginada de posts
+- [x] Busca de post pelo slug
+- [x] Busca de posts relacionados pela tag
+- [x] Busca de posts do usuário autenticado
+- [x] Busca de posts de um usuario autenticado pelo slug
+- [x] Delete de posts de um usuario autenticado pelo slug
+- [x] Criação de posts de um usuario autenticado
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+## 🏗️ Estrutura do Projeto
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Abaixo está a organização das principais pastas e arquivos deste projeto Laravel:
 
-### Premium Partners
+### 📂 Diretórios Principais
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+- **app/**  
+  Contém a lógica de negócio da aplicação:
+  - `Http/`: Classes de controladores e middlewares, formrequests.
+  - `Models/`: Classes de modelos.
 
-## Contributing
+- **bootstrap/**  
+  Inicialização do framework e configuração do autoload.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- **config/**  
+  Arquivos de configuração de serviços e do sistema.
 
-## Code of Conduct
+- **database/**  
+  Estrutura de banco de dados:
+  - `factories/`: Criação de dados para testes.
+  - `migrations/`: Definições de estrutura das tabelas.
+  - `seeders/`: Popular o banco com dados iniciais.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- **public/**  
+  Pasta pública acessível pela web. Contém o `index.php` e os assets públicos.
 
-## Security Vulnerabilities
+- **routes/**  
+  Definições de rotas:
+  - `api.php`: Rotas para o ambiente de API, com respostas em JSON.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- **storage/**  
+  Arquivos gerados ou manipulados pela aplicação (logs, cache, uploads).
 
-## License
+- **tests/**  
+  Testes automatizados.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- **vendor/**  
+  Dependências instaladas via Composer (não edite arquivos aqui).
+
+---
+
+> Essa estrutura facilita a manutenção, escalabilidade e organização do projeto conforme boas práticas do Laravel.
+
+
+## 🛠️ Pré-requisitos
+Antes de começar, certifique-se de ter instalado: 
+- Docker
+
+## 🚀 Executando o projeto
+Para executar este projeto Laravel, certifique-se de ter instalado o PHP 8.3 ou superior, Composer.
+
+Siga as etapas abaixo para executar este projeto Laravel em sua máquina local:
+
+1. **Clone o repositório**  
+   ```bash
+   git clone git@github.com:RafaelSouza-13/blog-api-laravel.git
+
+2. **Acesse o diretório do projeto**
+   ```bash
+   cd blog-api-laravel
+
+
+3. **Configure as variáveis de ambiente**
+    Copie o arquivo `.env.example` para `.env` e configure as variáveis de ambiente conforme o seu ambiente local (como configurações de banco de dados).
+
+4. **Suba os containers com Docker Compose**
+   ```bash
+   docker-compose up -d --build
+
+5. **Instale as dependências do Laravel(dentro do container)**
+   ```bash
+   docker exec -it blog_laravel-api_1 composer install
+
+6. **Gere a chave da aplicação**
+   ```bash
+   docker exec -it blog_laravel-api_1 php artisan key:generate
+
+7. **Execute as migrações do banco de dados**
+    ```bash
+    docker exec -it blog_laravel-api_1 php artisan migrate
+
+8. **Execute os seeders para alimentar o banco de dados**
+    ```bash
+    docker exec -it blog_laravel-api_1 php artisan db:seed
+
+9. **Comando para reiniciar o banco e executar o seed após**
+  ```bash
+  docker exec -it blog_laravel-api_1 php artisan migrate:refresh --seed
+
+Agora você pode acessar o projeto em `http://localhost:8000`.
+
+Agora você pode acessar o banco de dados utilizando phpmyadmin, com as credênciais definidas no compose.yaml, em `http://localhost:8080`.
+
+## 🛡️ License
+
+The Laravel framework is open-sourced software licensed under the. Este projeto está licenciado sob a [MIT license](https://opensource.org/licenses/MIT).
