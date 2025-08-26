@@ -15,6 +15,9 @@ Criar uma API básica que forneça dados de um recurso e configurar um ambiente 
 hospedar e implantar essa aplicação. O foco é demonstrar habilidades em desenvolvimento
 backend, infraestrutura como serviço (AWS EC2) e conhecimentos de DevOps.
 
+## Observações
+Dentro do diretório extras encontrasse a collection para testes da API realizadas no postman. Foi criado um CRUD para novos registros, porém as rotas estão protegidas pelo sanctum, é preciso autenticar um usuário para acessar os dados. Nos passos de configuração na etapa de seed, um usuário é criado com email: usuario@example.com e senha: senha123, tais credenciais após autenticadas conseguem realizar o CRUD da aplicação.
+
 ## ⚙️ Tecnologias Utilizadas
 
 - PHP 8.3
@@ -89,6 +92,9 @@ Abaixo está a organização das principais pastas e arquivos deste projeto Lara
   - `factories/`: Criação de dados para testes.
   - `migrations/`: Definições de estrutura das tabelas.
   - `seeders/`: Popular o banco com dados iniciais.
+
+- **extras/**  
+  - Encontrasse as collection para testes da API.
 
 - **public/**  
   Pasta pública acessível pela web. Contém o `index.php` e os assets públicos.
