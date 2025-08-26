@@ -7,55 +7,191 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+Que a força esteja com você!
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+#  Desafio Alpesone - Backend
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Criar uma API básica que forneça dados de um recurso e configurar um ambiente na AWS para
+hospedar e implantar essa aplicação. O foco é demonstrar habilidades em desenvolvimento
+backend, infraestrutura como serviço (AWS EC2) e conhecimentos de DevOps.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## ⚙️ Tecnologias Utilizadas
 
-## Learning Laravel
+- PHP 8.3
+- Laravel 12
+- Composer
+- Git
+- SQL
+- SQLITE3
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 💡 Funcionalidades
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Etapa 1: Aplicação Laravel
+- [x] Criar uma aplicação Laravel e configurar o ambiente local com MySQL ou SQLite.
+- Criar um comando Artisan que:
+    - [x] Baixa e lê o JSON da URL
+    - [x] Valida e insere os dados no banco de dados, atualizando os itens existentes.
+    - [x] Faça uma verificação a cada hora se o JSON original foi alterado e aplique as respectivas atualizações na base de dados.
+- [x] Criar uma API REST para que seja possível fazer CRUD à base de dados salva.
+- Escrever testes testes automatizados.
+    - [x] Unitários: Validações dos dados e lógica do comando de importação.
+    - [x] Integração: Testar os endpoints da API, incluindo autenticação e paginação.
+- Documentação: Incluir instruções para:
+    - [x] Configurar o ambiente.
+    - [x] Executar o comando de importação.
+    - [x] Rodar a aplicação e os testes.
+    - [x] Extras: collection para testes da API.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Etapa 2: Configuração de Infraestrutura na AWS
+- [x] Criar e configurar uma instância EC2
+- [ ] Configurar o servidor para permitir acesso público ao endpoint da API.
+- Extras
+    - [ ] Configurar um domínio ou subdomínio (exemplo: api.suaempresa.com)
+        utilizando o Route 53 ou outro DNS.
+    - [ ] Instalar e configurar HTTPS.
 
-### Premium Partners
+### Etapa 3: Deploy Automatizado
+- Criar um script para realizar o deploy da aplicação. O script deve::
+    - [ ] Copiar os arquivos do código para a instância EC2.
+    - [ ] Reiniciar o servidor (caso necessário) para aplicar as mudanças.
+- Extras:
+    - [ ] Configurar um pipeline CI/CD simples utilizando o Bitbucket Pipelines ou GitHub Actions 
+        para automatizar o deploy em pushes para o branch main.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
 
-## Contributing
+## 🏗️ Estrutura do Projeto
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Abaixo está a organização das principais pastas e arquivos deste projeto Laravel:
 
-## Code of Conduct
+### 📂 Diretórios Principais
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- **app/**  
+  Contém a lógica de negócio da aplicação:
+  - `console/`: commandos personalizados.
+  - `exeptions/`: Exceções personalizados.
+  - `Http/`: Classes de controladores e middlewares, formrequests e resources.
+  - `Models/`: Classes de modelos.
+  - `Repositories/`: Classes para ações no banco de dados.
+  - `Services/`: Classes para lógica de negócios mais complexas.
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
+- **bootstrap/**  
+  Inicialização do framework e configuração do autoload.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- **config/**  
+  Arquivos de configuração de serviços e do sistema.
+
+- **database/**  
+  Estrutura de banco de dados:
+  - `factories/`: Criação de dados para testes.
+  - `migrations/`: Definições de estrutura das tabelas.
+  - `seeders/`: Popular o banco com dados iniciais.
+
+- **public/**  
+  Pasta pública acessível pela web. Contém o `index.php` e os assets públicos.
+
+- **routes/**  
+  Definições de rotas:
+  - `api.php`: Rotas para o ambiente de API, com respostas em JSON.
+
+- **storage/**  
+  Arquivos gerados ou manipulados pela aplicação (logs, cache, uploads).
+
+- **tests/**  
+  Testes automatizados.
+
+- **vendor/**  
+  Dependências instaladas via Composer (não edite arquivos aqui).
+
+---
+
+
+# 🛠️ Pré-requisitos
+
+Antes de começar, certifique-se de ter instalado e configurado o seguinte:
+
+## 1️⃣ PHP e Extensões Necessárias
+
+Laravel precisa de PHP 8.3 ou superior, além de algumas extensões essenciais:
+
+| Extensão PHP       | Função                                     |
+|-------------------|-------------------------------------------|
+| `pdo`             | Suporte a PDO                              |
+| `pdo_mysql`       | Conexão com MySQL / MariaDB                |
+| `mysqli`          | Conexão com MySQL                          |
+| `sqlite3`         | Conexão com SQLite                          |
+| `mbstring`        | Suporte a strings multibyte                 |
+| `xml`             | Suporte a XML                               |
+
+---
+
+### 2️⃣ Instalação das Extensões por Sistema Operacional
+
+#### Linux (Ubuntu / Debian)
+```bash
+sudo apt update
+sudo apt install php php-cli php-mbstring php-xml php-mysql php-sqlite3 php-pdo
+```
+
+#### Windows
+- Abra o arquivo php.ini do seu PHP.
+- Descomente (remova o ';') as linhas:
+extension=pdo_mysql
+extension=mysqli
+extension=sqlite3
+
+
+## 🚀 Executando o projeto
+Para executar este projeto Laravel, certifique-se de ter instalado o PHP 8.3 ou superior, Composer.
+
+Siga as etapas abaixo para executar este projeto Laravel em sua máquina local:
+
+1. **Clone o repositório**  
+   ```bash
+   git clone git@github.com:RafaelSouza-13/alpesone.git
+
+2. **Acesse o diretório do projeto**
+   ```bash
+   cd alpesone
+
+
+3. **Configure as variáveis de ambiente**
+    Copie o arquivo `.env.example` para `.env` e configure as variáveis de ambiente conforme o seu ambiente local (como configurações de banco de dados).
+
+4. **Insira a API que le e baixa o JSON no .env**
+    Dentro do .env crie a variavel API_URL e atribua o valor da URL que é utilizada para ler e baixar o JSON.
+
+5. **Instale as dependências do Laravel**
+   ```bash
+   composer install
+
+6. **Gere a chave da aplicação**
+   ```bash
+    php artisan key:generate
+
+7. **Inicie o servidor**
+   ```bash
+    php artisan server
+
+8. **Execute as migrações do banco de dados**
+    ```bash
+    php artisan migrate
+
+9. **Execute os seeders para alimentar o banco de dados**
+    ```bash
+    php artisan db:seed
+
+10. **Comando para reiniciar o banco e executar o seed após**
+    ```bash
+    php artisan migrate:refresh --seed
+
+11. **Comando para executar importação**
+    ```bash
+    php artisan app:atualizar-json
+
+12. **Comando para executar os testes**
+    ```bash
+    php artisan test

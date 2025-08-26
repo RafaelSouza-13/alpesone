@@ -1,5 +1,7 @@
 <?php
 
+use App\Exceptions\AuthException;
+use App\Exceptions\VehicleNotFoundException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -20,5 +22,5 @@ return Application::configure(basePath: dirname(__DIR__))
         $schedule->command('app:atualizar-json')->hourly();
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        
     })->create();

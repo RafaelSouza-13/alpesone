@@ -2,14 +2,26 @@
 
 namespace Tests\Feature;
 
+use App\Exceptions\VehicleNotFoundException;
 use App\Models\Vehicle;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-
+use Laravel\Sanctum\Sanctum;
+use App\Models\User;
 class VehicleApiTest extends TestCase
 {
     use RefreshDatabase;
+    protected $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Cria e autentica um usuário para todos os testes
+        $this->user = User::factory()->create();
+        Sanctum::actingAs($this->user);
+    }
     /** @test */
     public function vehicles_list_returns_paginated_data_5(){
         Vehicle::factory()->count(50)->create();
@@ -210,6 +222,20 @@ class VehicleApiTest extends TestCase
 
         $this->assertDatabaseMissing('vehicles', [
             'json_data_id' => $vehicle->json_data_id,
+        ]);
+    }
+
+    /** @test */
+    public function vehicles_with_id_not_exists_return_VehicleNotFoundException(){
+        $response = $this->getJson("/api/v1/vehicles/99999");
+
+        $response->assertStatus(404);
+        $response->assertJsonStructure([
+            'error',
+            'time'
+        ]);
+        $response->assertJson([
+            'error' => 'Veículo não encontrado',
         ]);
     }
 }
