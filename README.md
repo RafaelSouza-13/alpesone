@@ -108,8 +108,6 @@ Abaixo está a organização das principais pastas e arquivos deste projeto Lara
 
 ---
 
-> Essa estrutura facilita a manutenção, escalabilidade e organização do projeto conforme boas práticas do Laravel.
-
 
 # 🛠️ Pré-requisitos
 
@@ -163,31 +161,37 @@ Siga as etapas abaixo para executar este projeto Laravel em sua máquina local:
 3. **Configure as variáveis de ambiente**
     Copie o arquivo `.env.example` para `.env` e configure as variáveis de ambiente conforme o seu ambiente local (como configurações de banco de dados).
 
+4. **Insira a API que le e baixa o JSON no .env**
+    Dentro do .env crie a variavel API_URL e atribua o valor da URL que é utilizada para ler e baixar o JSON.
 
-4. **Instale as dependências do Laravel**
+5. **Instale as dependências do Laravel**
    ```bash
    composer install
 
-5. **Gere a chave da aplicação**
+6. **Gere a chave da aplicação**
    ```bash
     php artisan key:generate
 
-6. **Execute as migrações do banco de dados**
+7. **Inicie o servidor**
+   ```bash
+    php artisan server
+
+8. **Execute as migrações do banco de dados**
     ```bash
     php artisan migrate
 
-7. **Execute os seeders para alimentar o banco de dados**
+9. **Execute os seeders para alimentar o banco de dados**
     ```bash
     php artisan db:seed
 
-8. **Comando para reiniciar o banco e executar o seed após**
-  ```bash
+10. **Comando para reiniciar o banco e executar o seed após**
+    ```bash
     php artisan migrate:refresh --seed
 
-Agora você pode acessar o projeto em `http://localhost:8000`.
+11. **Comando para executar importação**
+    ```bash
+    php artisan app:atualizar-json
 
-Agora você pode acessar o banco de dados utilizando phpmyadmin, com as credênciais definidas no compose.yaml, em `http://localhost:8080`.
-
-## 🛡️ License
-
-The Laravel framework is open-sourced software licensed under the. Este projeto está licenciado sob a [MIT license](https://opensource.org/licenses/MIT).
+12. **Comando para executar os testes**
+    ```bash
+    php artisan test
