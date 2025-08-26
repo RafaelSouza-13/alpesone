@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\VehicleNotFoundException;
 use App\Http\Requests\VehicleRequest;
 use App\Http\Requests\VehicleRequestUpdate;
 use App\Http\Resources\VehicleResource;
 use App\Models\Vehicle;
 use \Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Repositories\VehicleRepository;
+use Illuminate\Auth\AuthServiceProvider;
+use Illuminate\Container\Attributes\Auth;
 
 class VehicleController extends Controller
 {
@@ -41,7 +44,7 @@ class VehicleController extends Controller
         try{
             $vehicle = Vehicle::where('json_data_id', $id)->firstOrFail();
         }catch(ModelNotFoundException $e){
-            return response()->json(['error' => 'Vehicle not found'], 404);
+            throw new VehicleNotFoundException();
         }
         return (new VehicleResource($vehicle))->response()->setStatusCode(200);
     }
@@ -57,7 +60,7 @@ class VehicleController extends Controller
             $vehicle->update($data);
             
         }catch(ModelNotFoundException $e){
-            return response()->json(['error' => 'Vehicle not found'], 404);
+            throw new VehicleNotFoundException();
         }
         return response()->json(['data' => new VehicleResource($vehicle)], 200);
     }
@@ -77,10 +80,7 @@ class VehicleController extends Controller
             ], 200);
 
         } catch (ModelNotFoundException $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Vehicle not found.'
-            ], 404);
+            throw new VehicleNotFoundException();
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
