@@ -6,10 +6,21 @@ use App\Models\Vehicle;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-
+use Laravel\Sanctum\Sanctum;
+use App\Models\User;
 class VehicleApiTest extends TestCase
 {
     use RefreshDatabase;
+    protected $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        // Cria e autentica um usuário para todos os testes
+        $this->user = User::factory()->create();
+        Sanctum::actingAs($this->user);
+    }
     /** @test */
     public function vehicles_list_returns_paginated_data_5(){
         Vehicle::factory()->count(50)->create();
