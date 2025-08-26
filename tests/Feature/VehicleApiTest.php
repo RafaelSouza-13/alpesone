@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Exceptions\VehicleNotFoundException;
 use App\Models\Vehicle;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -221,6 +222,20 @@ class VehicleApiTest extends TestCase
 
         $this->assertDatabaseMissing('vehicles', [
             'json_data_id' => $vehicle->json_data_id,
+        ]);
+    }
+
+    /** @test */
+    public function vehicles_with_id_not_exists_return_VehicleNotFoundException(){
+        $response = $this->getJson("/api/v1/vehicles/99999");
+
+        $response->assertStatus(404);
+        $response->assertJsonStructure([
+            'error',
+            'time'
+        ]);
+        $response->assertJson([
+            'error' => 'Veículo não encontrado',
         ]);
     }
 }

@@ -25,17 +25,40 @@ backend, infraestrutura como serviço (AWS EC2) e conhecimentos de DevOps.
 - SQLITE3
 
 ## 💡 Funcionalidades
-- [x] Baixa e lê o JSON da URL
-- [x] SignIn
-- [x] Validar usuário
-- [x] Busca paginada de posts
-- [x] Busca de post pelo slug
-- [x] Busca de posts relacionados pela tag
-- [x] Busca de posts do usuário autenticado
-- [x] Busca de posts de um usuario autenticado pelo slug
-- [x] Delete de posts de um usuario autenticado pelo slug
-- [x] Criação de posts de um usuario autenticado
 
+### Etapa 1: Aplicação Laravel
+- [x] Criar uma aplicação Laravel e configurar o ambiente local com MySQL ou SQLite.
+- Criar um comando Artisan que:
+    - [x] Baixa e lê o JSON da URL
+    - [x] Valida e insere os dados no banco de dados, atualizando os itens existentes.
+    - [x] Faça uma verificação a cada hora se o JSON original foi alterado e aplique as respectivas atualizações na base de dados.
+- [x] Criar uma API REST para que seja possível fazer CRUD à base de dados salva.
+- Escrever testes testes automatizados.
+    - [x] Unitários: Validações dos dados e lógica do comando de importação.
+    - [x] Integração: Testar os endpoints da API, incluindo autenticação e paginação.
+- Documentação: Incluir instruções para:
+    - [x] Configurar o ambiente.
+    - [x] Executar o comando de importação.
+    - [x] Rodar a aplicação e os testes.
+    - [x] Extras: collection para testes da API.
+
+
+
+### Etapa 2: Configuração de Infraestrutura na AWS
+- [x] Criar e configurar uma instância EC2
+- [ ] Configurar o servidor para permitir acesso público ao endpoint da API.
+- Extras
+    - [ ] Configurar um domínio ou subdomínio (exemplo: api.suaempresa.com)
+        utilizando o Route 53 ou outro DNS.
+    - [ ] Instalar e configurar HTTPS.
+
+### Etapa 3: Deploy Automatizado
+- Criar um script para realizar o deploy da aplicação. O script deve::
+    - [ ] Copiar os arquivos do código para a instância EC2.
+    - [ ] Reiniciar o servidor (caso necessário) para aplicar as mudanças.
+- Extras:
+    - [ ] Configurar um pipeline CI/CD simples utilizando o Bitbucket Pipelines ou GitHub Actions 
+        para automatizar o deploy em pushes para o branch main.
 
 
 ## 🏗️ Estrutura do Projeto
@@ -46,8 +69,14 @@ Abaixo está a organização das principais pastas e arquivos deste projeto Lara
 
 - **app/**  
   Contém a lógica de negócio da aplicação:
-  - `Http/`: Classes de controladores e middlewares, formrequests.
+  - `console/`: commandos personalizados.
+  - `exeptions/`: Exceções personalizados.
+  - `Http/`: Classes de controladores e middlewares, formrequests e resources.
   - `Models/`: Classes de modelos.
+  - `Repositories/`: Classes para ações no banco de dados.
+  - `Services/`: Classes para lógica de negócios mais complexas.
+
+
 
 - **bootstrap/**  
   Inicialização do framework e configuração do autoload.
@@ -82,9 +111,40 @@ Abaixo está a organização das principais pastas e arquivos deste projeto Lara
 > Essa estrutura facilita a manutenção, escalabilidade e organização do projeto conforme boas práticas do Laravel.
 
 
-## 🛠️ Pré-requisitos
-Antes de começar, certifique-se de ter instalado: 
-- Docker
+# 🛠️ Pré-requisitos
+
+Antes de começar, certifique-se de ter instalado e configurado o seguinte:
+
+## 1️⃣ PHP e Extensões Necessárias
+
+Laravel precisa de PHP 8.3 ou superior, além de algumas extensões essenciais:
+
+| Extensão PHP       | Função                                     |
+|-------------------|-------------------------------------------|
+| `pdo`             | Suporte a PDO                              |
+| `pdo_mysql`       | Conexão com MySQL / MariaDB                |
+| `mysqli`          | Conexão com MySQL                          |
+| `sqlite3`         | Conexão com SQLite                          |
+| `mbstring`        | Suporte a strings multibyte                 |
+| `xml`             | Suporte a XML                               |
+
+---
+
+### 2️⃣ Instalação das Extensões por Sistema Operacional
+
+#### Linux (Ubuntu / Debian)
+```bash
+sudo apt update
+sudo apt install php php-cli php-mbstring php-xml php-mysql php-sqlite3 php-pdo
+```
+
+#### Windows
+- Abra o arquivo php.ini do seu PHP.
+- Descomente (remova o ';') as linhas:
+extension=pdo_mysql
+extension=mysqli
+extension=sqlite3
+
 
 ## 🚀 Executando o projeto
 Para executar este projeto Laravel, certifique-se de ter instalado o PHP 8.3 ou superior, Composer.
@@ -93,39 +153,36 @@ Siga as etapas abaixo para executar este projeto Laravel em sua máquina local:
 
 1. **Clone o repositório**  
    ```bash
-   git clone git@github.com:RafaelSouza-13/blog-api-laravel.git
+   git clone git@github.com:RafaelSouza-13/alpesone.git
 
 2. **Acesse o diretório do projeto**
    ```bash
-   cd blog-api-laravel
+   cd alpesone
 
 
 3. **Configure as variáveis de ambiente**
     Copie o arquivo `.env.example` para `.env` e configure as variáveis de ambiente conforme o seu ambiente local (como configurações de banco de dados).
 
-4. **Suba os containers com Docker Compose**
-   ```bash
-   docker-compose up -d --build
 
-5. **Instale as dependências do Laravel(dentro do container)**
+4. **Instale as dependências do Laravel**
    ```bash
-   docker exec -it blog_laravel-api_1 composer install
+   composer install
 
-6. **Gere a chave da aplicação**
+5. **Gere a chave da aplicação**
    ```bash
-   docker exec -it blog_laravel-api_1 php artisan key:generate
+    php artisan key:generate
 
-7. **Execute as migrações do banco de dados**
+6. **Execute as migrações do banco de dados**
     ```bash
-    docker exec -it blog_laravel-api_1 php artisan migrate
+    php artisan migrate
 
-8. **Execute os seeders para alimentar o banco de dados**
+7. **Execute os seeders para alimentar o banco de dados**
     ```bash
-    docker exec -it blog_laravel-api_1 php artisan db:seed
+    php artisan db:seed
 
-9. **Comando para reiniciar o banco e executar o seed após**
+8. **Comando para reiniciar o banco e executar o seed após**
   ```bash
-  docker exec -it blog_laravel-api_1 php artisan migrate:refresh --seed
+    php artisan migrate:refresh --seed
 
 Agora você pode acessar o projeto em `http://localhost:8000`.
 
