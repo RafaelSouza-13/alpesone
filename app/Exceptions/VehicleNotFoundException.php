@@ -11,7 +11,10 @@ class VehicleNotFoundException extends Exception
     }
     public function render($request){
         return response()->json(
-            ['error' => 'Veículo não encontrado'],
+            [
+                'error' => 'Veículo não encontrado',
+                'time' => now()
+            ],
             404);
     }
 }
